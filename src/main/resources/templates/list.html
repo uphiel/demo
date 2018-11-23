@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>小说列表</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+</head>
+<body>
+<div style="padding: 50px 100px 10px;">
+    <h2 style="display: none">读小说</h2><br>
+    <h2 id="bookTitle" th:text="${bookTitle}"></h2>
+    <p id="bookInfo" th:text="${bookInfo}"></p>
+    <div id="lists" class="container">
+        <div class="row">
+            <div class="col-xs-3" th:each="alist:${bookList}">
+                <a th:href="${alist.getLink()}"><span th:text="${alist.getText()}"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<h2>用户列表</h2>
+<div>
+    <ul>
+        <li  th:each="user:${users}">
+            <span th:text="${user.getId()}"></span>-
+            <span th:text="${user.getName()}"></span>-
+            <span th:text="${user.getAge()}"></span>-
+            <span th:text="${user.getAddress()}"></span>
+        </li>
+    </ul>
+</div>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
