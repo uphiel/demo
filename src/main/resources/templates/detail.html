@@ -18,11 +18,13 @@
     <div id="page" class="container">
         <div class="row">
             <div class="col-xs-5 text-right">
-                <button type="button" class="btn btn-default"><a th:href="${lastLink}">上一章</a></button>
+                <button type="button" class="btn btn-default"><a class="lastCharpter" th:href="${lastLink}">上一章</a>
+                </button>
             </div>
             <div class="col-xs-2"></div>
             <div class="col-xs-5 text-left">
-                <button type="button" class="btn btn-default"><a th:href="${nextLink}">下一章</a></button>
+                <button type="button" class="btn btn-default"><a class="nextCharpter" th:href="${nextLink}">下一章</a>
+                </button>
             </div>
         </div>
 
@@ -30,5 +32,26 @@
 </div>
 <script src="/static/js/jquery-3.3.1.min.js"></script>
 <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        document.onkeypress = doKey;
+        document.onkeydown = doKey;
+
+        function doKey(e) {
+            var ev = e || window.event;//获取event对象
+            var k = e.keyCode||e.which||e.charCode;
+            if (k == 37) {
+                window.location = "http://localhost:8081" + $(".lastCharpter").attr("href");
+// 上键
+//你的上一页js方法
+            } else if (ev.keyCode == 39) {
+// 下键
+//你的下一页js方法
+                window.location = "http://localhost:8081" + $(".nextCharpter").attr("href");
+            }
+        }
+    });
+
+</script>
 </body>
 </html>
