@@ -7,32 +7,32 @@ import java.util.Set;
 
 public class Book {
     private LinkedHashMap<String, String> bookUrl;         //书籍地址
-    private String bookName;    //书名
-    private String author;          //作者
-    private String info;                //书籍简介
-    private String catalog;         //书籍列表
-    private String charCount;       //总长数
-    private String url;       //总长数
-    private String sectionNum;      //第几章
-    private String charpterTitle;   //章标题
+    private String bookName;                //书名
+    private String author;                       //作者
+    private String info;                             //书籍简介
+    private String catalog;                     //书籍列表
+    private String charCount;                //总章数
+    private String url;                              //单章地址
+    private String sectionNum;              //第几章
+    private String charpterTitle;           //章标题
     private String charpterContent;     //章内容
-    private int number;         //书籍网站数量
+    private int number;                          //书籍网站数量
 
 
     public Book(){}
 
     public Book(String bookName, String url) throws Exception{
-        if(bookUrl != null){
-            Set<Map.Entry<String, String>> set = bookUrl.entrySet();
-            for(Map.Entry<String, String> entry : set){
-                if(url.equals(entry.getValue())){
-                    throw new Exception("url already exists");
-                }
-            }
-        }
+//        if(bookUrl != null){
+//            Set<Map.Entry<String, String>> set = bookUrl.entrySet();
+//            for(Map.Entry<String, String> entry : set){
+//                if(url.equals(entry.getValue())){
+//                    throw new Exception("url already exists");
+//                }
+//            }
+//        }
         this.bookName = bookName;
         this.url = url;
-        this.bookUrl = new LinkedHashMap<String, String>();
+        this.bookUrl = new LinkedHashMap<>();
         this.setBookUrl();
     }
 
@@ -80,7 +80,7 @@ public class Book {
         return charpterContent;
     }
 
-    public void setBookUrl() {
+    public void setBookUrl() throws Exception{
         int num = 1;
         if(bookUrl==null){
             this.bookUrl.put(String.valueOf(num), this.url);
