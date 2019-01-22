@@ -1,51 +1,63 @@
 package com.example.demo.dao;
 
+import javax.persistence.*;
+
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Table(name = "Book")
+@Entity
 public class Book {
-    private LinkedHashMap<String, String> bookUrl;         //书籍地址
+
+    @Column(name = "book_seq", nullable = false)
+    private String bookSeq;                  //书籍编号
+
+    @Column(name = "book_name", nullable = false)
     private String bookName;                //书名
+
+    @Column(name = "book_author")
     private String author;                       //作者
+
+    @Column(name = "book_info")
     private String info;                             //书籍简介
-    private String catalog;                     //书籍列表
+
+    @Column(name = "charcount")
     private String charCount;                //总章数
-    private String url;                              //单章地址
-    private String sectionNum;              //第几章
-    private String charpterTitle;           //章标题
-    private String charpterContent;     //章内容
+
+    @Column(name = "site_no")
     private int number;                          //书籍网站数量
 
+    @Column(name = "site_url", nullable = false)
+    private String siteUrl;                    //书籍网站
 
-    public Book(){}
-
-    public Book(String bookName, String url) throws Exception{
-//        if(bookUrl != null){
-//            Set<Map.Entry<String, String>> set = bookUrl.entrySet();
-//            for(Map.Entry<String, String> entry : set){
-//                if(url.equals(entry.getValue())){
-//                    throw new Exception("url already exists");
-//                }
-//            }
-//        }
+    public Book(String bookSeq, String bookName) throws Exception {
+        this.bookSeq = bookSeq;
         this.bookName = bookName;
-        this.url = url;
-        this.bookUrl = new LinkedHashMap<>();
-        this.setBookUrl();
+    }
+    public Book(String bookSeq, String bookName, String siteUrl, String author, String info) {
+        this.bookSeq = bookSeq;
+        this.bookName = bookName;
+        this.siteUrl = siteUrl;
+        this.author = author;
+        this.info = info;
+    }
+    public Book(String bookSeq, String bookName, String siteUrl, String author, String info, String charCount, int number) {
+        this.bookSeq = bookSeq;
+        this.bookName = bookName;
+        this.siteUrl = siteUrl;
+        this.author = author;
+        this.info = info;
+        this.charCount = charCount;
+        this.number = number;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public HashMap getBookUrl() {
-        return bookUrl;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    public String getBookSeq() {
+        return bookSeq;
     }
 
     public String getBookName() {
@@ -60,34 +72,16 @@ public class Book {
         return info;
     }
 
-    public String getCatalog() {
-        return catalog;
-    }
-
     public String getCharCount() {
         return charCount;
     }
 
-    public String getSectionNum() {
-        return sectionNum;
+    public int getNumber() {
+        return number;
     }
 
-    public String getCharpterTitle() {
-        return charpterTitle;
-    }
-
-    public String getCharpterContent() {
-        return charpterContent;
-    }
-
-    public void setBookUrl() throws Exception{
-        int num = 1;
-        if(bookUrl==null){
-            this.bookUrl.put(String.valueOf(num), this.url);
-        }else{
-            this.number++;
-            this.bookUrl.put(String.valueOf( this.number), this.url);
-        }
+    public void setBookSeq(String bookSeq) {
+        this.bookSeq = bookSeq;
     }
 
     public void setBookName(String bookName) {
@@ -102,36 +96,21 @@ public class Book {
         this.info = info;
     }
 
-    public void setCatalog(String catalog) {
-        this.catalog = catalog;
-    }
-
     public void setCharCount(String charCount) {
         this.charCount = charCount;
     }
 
-    public void setSectionNum(String sectionNum) {
-        this.sectionNum = sectionNum;
-    }
-
-    public void setCharpterTitle(String charpterTitle) {
-        this.charpterTitle = charpterTitle;
-    }
-
-    public void setCharpterContent(String charpterContent) {
-        this.charpterContent = charpterContent;
-    }
-
     public void setNumber(int number) {
-        int i = 0;
-        Set<Map.Entry<String, String>> set = this.bookUrl.entrySet();
-        for(Map.Entry<String, String> entry : set){
-            i++;
-        }
-        this.number = i;
+        this.number = number;
     }
 
-    public int getNumber() {
-        return number;
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
     }
+
+    public String getSiteUrl() {
+        return siteUrl;
+    }
+
+
 }

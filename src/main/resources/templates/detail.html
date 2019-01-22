@@ -4,8 +4,53 @@
     <meta charset="UTF-8"/>
     <title>Insert title here</title>
     <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <style type="text/css">
+        p#back-to-top {
+            position: fixed;
+            display: none;
+            bottom: 100px;
+            right: 10px;
+            z-index: 999;
+        }
+
+        p#back-to-top a {
+            text-align: center;
+            text-decoration: none;
+            color: #d1d1d1;
+            display: block;
+            width: 64px;
+            /*使用CSS3中的transition属性给跳转链接中的文字添加渐变效果*/
+            -moz-transition: color 1s;
+            -webkit-transition: color 1s;
+            -o-transition: color 1s;
+        }
+
+        p#back-to-top a:hover {
+            color: #979797;
+        }
+
+        p#back-to-top a span {
+            background: transparent url(/static/imgs/Gnome-Go-Top-48.png) no-repeat -25px -290px;
+            border-radius: 6px;
+            display: block;
+            height: 64px;
+            width: 56px;
+            margin-bottom: 5px;
+            /*使用CSS3中的transition属性给<span>标签背景颜色添加渐变效果*/
+            -moz-transition: background 1s;
+            -webkit-transition: background 1s;
+            -o-transition: background 1s;
+        }
+
+        #back-to-top a:hover span {
+
+            background: transparent url(/static/imgs/Gnome-Go-Top-48.png?1202) no-repeat -25px -290px;
+        }
+    </style>
 </head>
 <body>
+<a id="top"></a>
+<span style="font-size:14px"><p id="back-to-top"><a href="#top"><span></span>返回顶部</a></p></span>
 <div style="padding: 50px 100px 10px;">
     <h2 id="bookTitle" class="text-center" th:text="${booktitle}"></h2>
     <div id="lists" class="container">
@@ -21,7 +66,10 @@
                 <button type="button" class="btn btn-default"><a class="lastCharpter" th:href="${lastLink}">上一章</a>
                 </button>
             </div>
-            <div class="col-xs-2"></div>
+            <div class="col-xs-2 text-center">
+                <button type="button" class="btn btn-default"><a class="listCharpter" th:href="${listCharpterLink}">目录</a>
+                </button>
+            </div>
             <div class="col-xs-5 text-left">
                 <button type="button" class="btn btn-default"><a class="nextCharpter" th:href="${nextLink}">下一章</a>
                 </button>
@@ -39,7 +87,7 @@
 
         function doKey(e) {
             var ev = e || window.event;//获取event对象
-            var k = e.keyCode||e.which||e.charCode;
+            var k = e.keyCode || e.which || e.charCode;
             if (k == 37) {
                 window.location = "http://localhost:8081" + $(".lastCharpter").attr("href");
 // 上键
@@ -50,6 +98,28 @@
                 window.location = "http://localhost:8081" + $(".nextCharpter").attr("href");
             }
         }
+
+        //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $("#back-to-top").fadeIn(1000);
+            } else {
+                $("#back-to-top").fadeOut(1000);
+            }
+        });
+
+        //当点击跳转链接后，回到页面顶部位置
+        $("#back-to-top").click(function () {
+            //$('body,html').animate({scrollTop:0},1000);
+            if ($('html').scrollTop()) {
+                $('html').animate({scrollTop: 0}, 1000);
+                return false;
+            }
+            $('body').animate({scrollTop: 0}, 1000);
+            return false;
+        });
+
     });
 
 </script>
