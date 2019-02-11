@@ -1,20 +1,20 @@
 package com.wangfei.thread;
 
-public class PrimeGenerator implements Runnable {
+public class PrimeGenerator extends Thread {
 
     public void run() {
         long number = 1L;
+        //循环查找质数
         while(true){
             if(isPrime(number)){
-                System.out.printf("Number %d is Prime", number);
+                System.out.printf("Number %d is Prime\n", number);
             }
+            if(isInterrupted()){
+                System.out.println("The Prime Generator has been Interrupted");
+                return;
+            }
+            number++;
         }
-
-        if(isInterrupted()){
-            System.out.printf("The Prime Generator has been Interrupted");
-            return;
-        }
-        number++;
     }
 
     /**
@@ -35,7 +35,14 @@ public class PrimeGenerator implements Runnable {
         return true;
     }
 
-    private boolean isInterrupted(){
-       this.
+    public static void main(String[] args){
+        Thread task=new PrimeGenerator();
+        task.start();
+        try{
+            Thread.sleep(5000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        task.interrupt();
     }
 }
